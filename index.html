@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบการจัดการเรียนรู้ รายวิชาชีววิทยา</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap');
+        
+        body { 
+            background-color: #f4f7f6; /* สีพื้นหลังเว็บสีเทาอ่อนแบบในคลิป */
+            font-family: 'Sarabun', sans-serif; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ========================================== */
+        /* 1. ส่วนหัวเต็มหน้าจอ (Full-width Header) */
+        /* ========================================== */
+        .full-header {
+            background: linear-gradient(180deg, #ffffff 0%, #e0f2f1 100%);
+            width: 100%;
+            padding: 40px 20px 70px 20px; /* เผื่อพื้นที่ด้านล่างให้การ์ดซ้อนทับ */
+            text-align: center;
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .title-text { color: #009688; font-weight: 700; font-size: 1.5rem; line-height: 1.4; margin-top: 15px;}
+        .subtitle-text { color: #555; font-size: 1rem; }
+
+        /* ========================================== */
+        /* 2. ส่วนรายละเอียด (Content Section) */
+        /* ========================================== */
+        .content-body {
+            max-width: 500px;
+            margin: -40px auto 50px auto; /* ดึงเนื้อหาขึ้นไปซ้อนทับส่วนหัวนิดหน่อย */
+            position: relative;
+            z-index: 10;
+            padding: 0 15px;
+        }
+
+        /* --- สไตล์กล่องและการ์ด (ตามวิดีโอ 100%) --- */
+        .login-card { 
+            background: white; border-radius: 20px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
+            padding: 25px; 
+            border: 1px solid #e0e0e0;
+        }
+        .dashed-divider { border-top: 2.5px dashed #009688; margin: 15px 0; opacity: 0.6; }
+        
+        /* กรอบเส้นประของฟอร์มต่างๆ */
+        .form-card { background: white; border: 2.5px dashed #4CAF50; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .form-card-blue { border-color: #2196F3; }
+        .form-card-purple { border-color: #9C27B0; }
+        .form-card-orange { border-color: #FF9800; }
+        .form-card-red { border-color: #F44336; }
+        .form-card-teal { border-color: #009688; }
+        .form-card-yellow { border-color: #FFC107; }
+
+        .form-control, .form-select { border-radius: 8px; background-color: #fafafa; border: 1px solid #ccc;}
+        label { font-weight: 600; color: #444; margin-bottom: 5px; font-size: 0.95rem;}
+        .section-page { display: none; } 
+
+        /* --- สไตล์ปุ่มเมนู 1-10 --- */
+        .menu-btn { 
+            border-radius: 12px; cursor: pointer; padding: 15px 5px; color: white; 
+            font-weight: 700; text-align: center; font-size: 0.9rem; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border: none; box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            transition: transform 0.2s;
+        }
+        .menu-btn:active { transform: scale(0.95); }
+        .menu-btn i { font-size: 1.8rem; margin-bottom: 8px; }
+        
+        /* สีปุ่ม 10 สีตรงตามต้นฉบับ */
+        .bg-1 { background-color: #4CAF50; } .bg-2 { background-color: #2196F3; } 
+        .bg-3 { background-color: #455A64; } .bg-4 { background-color: #9C27B0; } 
+        .bg-5 { background-color: #E91E63; } .bg-6 { background-color: #FF9800; } 
+        .bg-7 { background-color: #F44336; } .bg-8 { background-color: #FFC107; color: #333 !important; } 
+        .bg-9 { background-color: #009688; } .bg-10 { background-color: #1976D2; }
+    </style>
+</head>
+<body>
+
+    <div class="full-header">
+        <div class="d-flex justify-content-center gap-3">
+            <img src="https://upload.wikimedia.org/wikipedia/th/thumb/3/36/UBRU_Logo.png/200px-UBRU_Logo.png" width="70" alt="UBRU Logo">
+            <img src="https://science.ubru.ac.th/wp-content/uploads/2021/07/sci-logo.png" width="70" alt="Sci Logo">
+        </div>
+        <h2 class="title-text">ระบบการจัดการเรียนรู้ใน<br>ชั้นเรียนรายวิชาชีววิทยา</h2>
+        <p class="subtitle-text">คณะวิทยาศาสตร์ มหาวิทยาลัยราชภัฏอุบลราชธานี</p>
+    </div>
+
+    <div class="container content-body">
+<div id="page-login" class="section-page login-card mx-auto" style="display: block;">
+            <h4 class="text-center text-secondary mb-3 fw-bold">🔐 ลงชื่อเข้าสู่ระบบ</h4>
+            <div class="dashed-divider"></div>
+            
+            <div class="mb-3">
+                <label>เลือกสถานะ 👤:</label>
+                <select class="form-select text-secondary fw-bold" id="loginRole" onchange="toggleLoginForm()">
+                    <option value="teacher">👨‍🏫 อาจารย์ผู้สอน</option>
+                    <option value="student">👨‍🎓 นักศึกษา</option>
+                </select>
+            </div>
+            
+            <div id="form-teacher">
+                <div class="mb-3">
+                    <label>ชื่อผู้ใช้ (Username) 👤:</label>
+                    <input type="text" id="t_username" class="form-control" placeholder="เช่น admin (หรือปล่อยว่างหากใช้รหัสเดิม)" disabled>
+                </div>
+                <div class="mb-4">
+                    <label>รหัสผ่านอาจารย์ 🔑:</label>
+                    <input type="password" id="t_password" class="form-control" placeholder="********">
+                </div>
+                <button onclick="loginSystem()" class="btn btn-success w-100 rounded-pill fw-bold py-2 mb-3" style="font-size: 1.1rem; box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);">
+                    เข้าสู่ระบบอาจารย์ 🌿
+                </button>
+                <button class="btn btn-secondary w-100 rounded-pill py-2" style="background-color: #546E7A;">
+                    📝 สมัครใช้งานสำหรับอาจารย์ท่านอื่น
+                </button>
+            </div>
+
+            <div id="form-student" style="display: none;">
+                <div class="mb-3">
+                    <label>อีเมลนักศึกษา 📧:</label>
+                    <input type="email" id="s_email" class="form-control" placeholder="example@ubru.ac.th">
+                </div>
+                <div class="mb-4">
+                    <label>รหัสผ่าน 🔑:</label>
+                    <input type="password" id="s_password" class="form-control" placeholder="รหัสผ่าน">
+                </div>
+                <button onclick="loginSystem()" class="btn btn-primary w-100 rounded-pill fw-bold py-2 mb-3" style="font-size: 1.1rem; box-shadow: 0 4px 6px rgba(33, 150, 243, 0.3);">
+                    เข้าสู่ระบบนักศึกษา 🎓
+                </button>
+            </div>
+        </div>
+
+        <div id="page-teacher-dashboard" class="section-page">
+            <div class="text-center mb-4 login-card border-0" style="padding: 15px;">
+                <h5 class="fw-bold m-0">👨‍🏫 ระบบอาจารย์ผู้สอน</h5>
+                <h4 class="fw-bold m-0 mt-1" style="color: #009688;">Dr.Kritsada Seejandee 🔬</h4>
+            </div>
+            
+            <div class="row g-2 mb-4">
+                <div class="col-6"><div class="menu-btn bg-1"><i class="fa-solid fa-user-graduate"></i>1. นักศึกษา</div></div>
+                <div class="col-6"><div class="menu-btn bg-2"><i class="fa-solid fa-camera"></i>2. เช็คชื่อ</div></div>
+                <div class="col-6"><div class="menu-btn bg-3"><i class="fa-solid fa-folder-open"></i>3. ส่งงาน</div></div>
+                <div class="col-6"><div class="menu-btn bg-4"><i class="fa-solid fa-chart-bar"></i>4. ประวัติมาเรียน</div></div>
+                <div class="col-6"><div class="menu-btn bg-5"><i class="fa-solid fa-chart-line"></i>5. ประวัติส่งงาน</div></div>
+                <div class="col-6"><div class="menu-btn bg-6"><i class="fa-solid fa-envelope-open-text"></i>6. ใบลา</div></div>
+                <div class="col-6"><div class="menu-btn bg-7"><i class="fa-solid fa-bullseye"></i>7. คะแนนสอบ</div></div>
+                <div class="col-6"><div class="menu-btn bg-8"><i class="fa-solid fa-trophy"></i>8. ตัดเกรด</div></div>
+                <div class="col-6"><div class="menu-btn bg-9"><i class="fa-solid fa-campground"></i>9. กิจกรรม/อบรม</div></div>
+                <div class="col-6"><div class="menu-btn bg-10"><i class="fa-solid fa-book"></i>10. ทะเบียน<br><small style="font-size: 11px; font-weight: normal;">นักศึกษา ครุศาสตร์ฯ</small></div></div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-6"><button class="btn w-100 rounded-pill text-white fw-bold py-2" style="background-color: #d32f2f;"><i class="fa-solid fa-gear"></i> จัดการบัญชี</button></div>
+                <div class="col-6"><button class="btn w-100 rounded-pill text-white fw-bold py-2" style="background-color: #D84315;" onclick="logoutSystem()"><i class="fa-solid fa-door-open"></i> ออก</button></div>
+            </div>
+        </div>
+
+        <div id="page-student-dashboard" class="section-page">
+            <div class="text-center mb-4 login-card border-0">
+                <h5 class="fw-bold m-0" style="color: #2196F3;">🎓 ระบบนักศึกษา</h5>
+                <h4 class="fw-bold mt-2" style="color: #00897B;" id="display-student-name">ชื่อ-นามสกุล นักศึกษา</h4>
+                <p class="text-muted mb-3" style="font-size: 0.95rem;">รหัสนักศึกษา: 641234567 | ห้อง 1</p>
+                
+                <div class="p-3 mx-auto" style="border: 2.5px dashed #2196F3; border-radius: 15px; max-width: 250px; background-color: #f4f7f6;">
+                    <p class="fw-bold text-primary mb-2" style="font-size: 0.9rem;"><i class="fa-solid fa-qrcode"></i> QR Code สแกนเข้าเรียน</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Student" alt="QR Code" width="140" class="mb-1 rounded">
+                </div>
+            </div>
+            <button class="btn w-100 rounded-pill text-white fw-bold py-2 mt-3" style="background-color: #D84315;" onclick="logoutSystem()"><i class="fa-solid fa-door-open"></i> ออกจากระบบ</button>
+        </div>
+
+    </div> <script>
+        // ใส่ลิงก์ Google Apps Script ตรงนี้ 
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfyc.../exec";
+
+        function toggleLoginForm() {
+            const role = document.getElementById("loginRole").value;
+            if (role === "teacher") {
+                document.getElementById("form-teacher").style.display = "block";
+                document.getElementById("form-student").style.display = "none";
+            } else {
+                document.getElementById("form-teacher").style.display = "none";
+                document.getElementById("form-student").style.display = "block";
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+            window.scrollTo(0, 0); 
+        }
+
+        function loginSystem() {
+            const role = document.getElementById("loginRole").value;
+            
+            if (role === "teacher") {
+                const pass = document.getElementById("t_password").value;
+                if (!pass) return alert("กรุณากรอกรหัสผ่านอาจารย์");
+                
+                if (pass === "biology") {
+                    showPage("page-teacher-dashboard");
+                } else {
+                    alert("รหัสผ่านอาจารย์ไม่ถูกต้อง!");
+                    document.getElementById("t_password").value = "";
+                }
+            } else {
+                const email = document.getElementById("s_email").value;
+                const pass = document.getElementById("s_password").value;
+                if (!email || !pass) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+                
+                document.getElementById("display-student-name").innerText = email.split('@')[0]; 
+                showPage("page-student-dashboard");
+            }
+        }
+
+        function logoutSystem() {
+            document.getElementById("t_password").value = "";
+            document.getElementById("s_email").value = "";
+            document.getElementById("s_password").value = "";
+            showPage("page-login");
+        }
+    </script>
+</body>
+</html>
